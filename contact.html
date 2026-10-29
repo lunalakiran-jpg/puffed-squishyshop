@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hubungi Kami - Puffé</title>
+    
+    <!-- Memanggil Google Fonts dengan benar -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* RESET & BASE STYLE */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            /* WAJIB PUTIH SOLID AGAR TIDAK TEMBUS TRANSPARAN DI DALAM IFRAME */
+            background-color: #ffffff !important;
+            padding: 40px 5%;
+            color: #4a5568;
+            line-height: 1.7;
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* CONTAINER UTAMA */
+        .contact-container {
+            max-width: 900px;
+            margin: 20px auto;
+            background: #ffffff;
+            border: 2px solid rgba(255, 117, 151, 0.15);
+            border-radius: 24px;
+            padding: 40px;
+            box-shadow: 0 15px 35px rgba(168, 68, 84, 0.12), 
+                        0 5px 15px rgba(0, 0, 0, 0.04);
+            animation: fadeInUp 0.8s ease-out;
+            display: grid;
+            grid-template-columns: 1fr 1.2fr;
+            gap: 40px;
+        }
+
+        @media (max-width: 768px) {
+            .contact-container {
+                grid-template-columns: 1fr;
+                gap: 30px;
+                padding: 25px;
+            }
+        }
+
+        /* KOLOM KIRI */
+        .info-section h1 {
+            font-size: 28px;
+            font-weight: 700;
+            color: #A84454;
+            margin-bottom: 12px;
+        }
+
+        .info-section .intro-text {
+            font-size: 13.5px;
+            color: #64748b;
+            margin-bottom: 30px;
+        }
+
+        .contact-details {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .detail-item {
+            background: #fff8f9;
+            padding: 15px;
+            border-radius: 16px;
+            border: 1px solid rgba(255, 117, 151, 0.08);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            box-shadow: inset 0 1px 3px rgba(255, 117, 151, 0.02);
+        }
+
+        .detail-item span {
+            font-size: 20px;
+        }
+
+        .detail-item p {
+            font-size: 13.5px;
+            color: #4a5568;
+        }
+
+        .detail-item strong {
+            display: block;
+            font-size: 11px;
+            color: #ff7597;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        /* KOLOM KANAN: FORMULIR JAVASCRIPT MURNI (ANTI ERROR 405) */
+        .form-section {
+            background: #ffffff;
+            border-radius: 20px;
+            padding: 30px;
+            border: 1px solid rgba(168, 68, 84, 0.08);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.02);
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            font-size: 13px;
+            color: #4a5568;
+        }
+
+        .form-group input, .form-group textarea {
+            width: 100%;
+            padding: 12px 16px;
+            border: 1px solid #edf2f7;
+            border-radius: 12px;
+            background-color: #f8fafc;
+            font-size: 13.5px;
+            color: #4a5568;
+            transition: all 0.3s ease;
+            outline: none;
+        }
+
+        .form-group input:focus, .form-group textarea:focus {
+            border-color: #ff7597;
+            background-color: #ffffff;
+            box-shadow: 0 0 0 3px rgba(255, 117, 151, 0.15);
+        }
+
+        .form-group textarea {
+            height: 120px;
+            resize: none;
+        }
+
+        /* TOMBOL KIRIM */
+        .btn-kirim {
+            background-color: #ff7597;
+            color: #ffffff;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 30px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 14px;
+            width: 100%;
+            box-shadow: 0 4px 12px rgba(255, 117, 151, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .btn-kirim:hover {
+            background-color: #A84454;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(168, 68, 84, 0.3);
+        }
+
+        /* KOTAK NOTIFIKASI SUKSES */
+        #notifSukses {
+            display: none;
+            margin-top: 20px;
+            padding: 20px;
+            background-color: #e6fffa;
+            border: 1px dashed #319795;
+            color: #234e52;
+            border-radius: 16px;
+            font-size: 14px;
+            text-align: center;
+            font-weight: 500;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="contact-container">
+        
+        <!-- KOLOM KIRI: INFO PEMILIK TOKO -->
+        <div class="info-section">
+            <h1>Hubungi Kami</h1> 
+            <p class="intro-text">Punya pertanyaan atau masukan? Silakan isi formulir di bawah ini untuk menghubungi tim kami.</p>
+            
+            <div class="contact-details">
+                <div class="detail-item">
+                    <span>📍</span>
+                    <div>
+                        <strong>Alamat</strong>
+                        <p>Jl. Mancaraya Indah</p>
+                    </div>
+                </div>
+                
+                <div class="detail-item">
+                    <span>📞</span>
+                    <div>
+                        <strong>Telepon</strong>
+                        <p>08123456789</p>
+                    </div>
+                </div>
+                
+                <div class="detail-item">
+                    <span>✉️</span>
+                    <div>
+                        <strong>Email</strong>
+                        <p>puffé00@gmail.com</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- KOLOM KANAN: FORMULIR JAVASCRIPT MURNI -->
+        <div class="form-section">
+            <div id="formKontak">
+                <div class="form-group">
+                    <label for="nama">Nama Lengkap</label>
+                    <input type="text" id="nama" placeholder="Masukkan nama Anda">
+                </div>
+
+                <div class="form-group">
+                    <label for="email">Alamat Email</label>
+                    <input type="email" id="email" placeholder="Masukkan email aktif">
+                </div>
+
+                <div class="form-group">
+                    <label for="pesan">Pesan Anda</label>
+                    <textarea id="pesan" placeholder="Tuliskan pesan atau pertanyaan Anda di sini..."></textarea>
+                </div>
+
+                <button type="button" class="btn-kirim" onclick="kirimPesan()">Kirim Pesan ✨</button>
+            </div>
+
+            <!-- Pesan Berhasil Dikirim -->
+            <div id="notifSukses">
+                ✨ <strong>Yeay, Pesan Berhasil Terkirim!</strong><br>Terima kasih sudah menghubungi Puffé. Simulasi tugas sekolah sukses! 💖
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        function kirimPesan() {
+            var nama = document.getElementById('nama').value.trim();
+            var email = document.getElementById('email').value.trim();
+            var pesan = document.getElementById('pesan').value.trim();
+
+            if(nama === '' || email === '' || pesan === '') {
+                alert('⚠️ Ups, tolong isi semua kolomnya dulu ya, Lun!');
+                return;
+            }
+
+            // Sembunyikan form dan tampilkan kotak sukses cantik
+            document.getElementById('formKontak').style.display = 'none';
+            document.getElementById('notifSukses').style.display = 'block';
+        }
+    </script>
+
+</body>
+</html>
+
